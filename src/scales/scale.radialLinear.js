@@ -10,13 +10,19 @@ module.exports = function(Chart) {
 
 		// Boolean - Whether to animate scaling the chart from the centre
 		animate: true,
-		lineArc: false,
 		position: 'chartArea',
+
+		// Boolean - if true, include angle lines and point labels
+		labelPoints: true,
 
 		angleLines: {
 			display: true,
 			color: 'rgba(0, 0, 0, 0.1)',
 			lineWidth: 1
+		},
+
+		gridLines: {
+			circular: false
 		},
 
 		// label settings
@@ -48,7 +54,7 @@ module.exports = function(Chart) {
 	};
 
 	function getValueCount(scale) {
-		return !scale.options.lineArc ? scale.chart.data.labels.length : 0;
+		return scale.options.labelPoints ? scale.chart.data.labels.length : 0;
 	}
 
 	function getPointLabelFontOptions(scale) {
@@ -274,7 +280,7 @@ module.exports = function(Chart) {
 		ctx.strokeStyle = helpers.getValueAtIndexOrDefault(gridLineOpts.color, index - 1);
 		ctx.lineWidth = helpers.getValueAtIndexOrDefault(gridLineOpts.lineWidth, index - 1);
 
-		if (scale.options.lineArc) {
+		if (scale.options.gridLines.circular) {
 			// Draw circular arcs between the points
 			ctx.beginPath();
 			ctx.arc(scale.xCenter, scale.yCenter, radius, 0, Math.PI * 2);
@@ -365,10 +371,10 @@ module.exports = function(Chart) {
 			return +this.getRightValue(this.chart.data.datasets[datasetIndex].data[index]);
 		},
 		fit: function() {
-			if (this.options.lineArc) {
-				fit(this);
-			} else {
+			if (this.options.labelPoints) {
 				fitWithPointLabels(this);
+			} else {
+				fit(this);
 			}
 		},
 		/**
@@ -502,7 +508,7 @@ module.exports = function(Chart) {
 					}
 				});
 
-				if (!opts.lineArc) {
+				if (opts.labelPoints) {
 					drawPointLabels(me);
 				}
 			}

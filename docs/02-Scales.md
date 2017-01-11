@@ -310,14 +310,15 @@ The following additional configuration options are provided by the radial linear
 
 Name | Type | Default | Description
 --- | --- | --- | ---
-lineArc | Boolean | false | If true, circular arcs are used else straight lines are used. The former is used by the polar area chart and the latter by the radar chart
+labelPoints | Boolean | true | If true, angle lines and point labels are drawn.
+*gridLines*.circular | Boolean | false | if true, radial lines are circular. If false, they are straight lines connecting the the different angle line locations.
 angleLines | Object | - | See the Angle Line Options section below for details.
 pointLabels | Object | - | See the Point Label Options section below for details.
 ticks | Object | - | See the Ticks table below for options.
 
 #### Angle Line Options
 
-The following options are used to configure angled lines that radiate from the center of the chart to the point labels. They can be found in the `angleLines` sub options. Note that these options only apply if `lineArc` is false.
+The following options are used to configure angled lines that radiate from the center of the chart to the point labels. They can be found in the `angleLines` sub options. Note that these options only apply if `labelPoints` is true.
 
 Name | Type | Default | Description
 --- | --- | --- | ---
@@ -327,7 +328,7 @@ lineWidth | Number | 1 | Width of angled lines
 
 #### Point Label Options
 
-The following options are used to configure the point labels that are shown on the perimeter of the scale. They can be found in the `pointLabels` sub options. Note that these options only apply if `lineArc` is false.
+The following options are used to configure the point labels that are shown on the perimeter of the scale. They can be found in the `pointLabels` sub options. Note that these options only apply if `labelPoints` is true.
 
 Name | Type | Default | Description
 --- | --- | --- | ---
